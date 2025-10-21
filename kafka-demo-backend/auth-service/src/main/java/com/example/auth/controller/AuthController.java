@@ -14,7 +14,7 @@ import java.time.LocalTime;
 @RequestMapping("/api/auth")
 @RequiredArgsConstructor
 @Slf4j
-@CrossOrigin(origins = "http://localhost:5173")
+@CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
