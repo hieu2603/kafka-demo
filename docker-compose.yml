@@ -30,6 +30,7 @@ services:
     ports:
       - "8083:8083"
     environment:
+      TZ: Asia/Ho_Chi_Minh
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - kafka
@@ -41,6 +42,7 @@ services:
     ports:
       - "8082:8082"
     environment:
+      TZ: Asia/Ho_Chi_Minh
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - kafka
@@ -52,6 +54,7 @@ services:
     ports:
       - "8081:8081"
     environment:
+      TZ: Asia/Ho_Chi_Minh
       SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
     depends_on:
       - kafka
