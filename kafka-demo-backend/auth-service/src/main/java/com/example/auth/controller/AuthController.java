@@ -1,6 +1,7 @@
 package com.example.auth.controller;
 
 import com.example.auth.client.EmailClient;
+import com.example.auth.client.NotificationClient;
 import com.example.auth.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -19,6 +20,7 @@ public class AuthController {
 
     private final KafkaTemplate<String, String> kafkaTemplate;
     private final EmailClient emailClient;
+    private final NotificationClient notificationClient;
 
     @PostMapping("/register-sync")
     public ResponseEntity<String> registerSync(@RequestBody UserDto dto) {
@@ -26,7 +28,11 @@ public class AuthController {
         log.info("[Auth Service] Registering user (SYNC): {}", dto.getEmail());
         log.info("[Auth Service] Start time: {}", LocalTime.now());
 
+        // Gửi email
         emailClient.sendEmail(dto);
+
+        // Gửi notification
+        notificationClient.sendNotification(dto);
 
         long end = System.currentTimeMillis();
         log.info("[Auth Service] Finish time: {}", LocalTime.now());
