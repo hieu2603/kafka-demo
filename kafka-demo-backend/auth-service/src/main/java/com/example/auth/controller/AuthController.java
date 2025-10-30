@@ -5,11 +5,13 @@ import com.example.auth.client.NotificationClient;
 import com.example.auth.dto.UserDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.catalina.User;
 import org.springframework.http.ResponseEntity;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalTime;
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -18,7 +20,7 @@ import java.time.LocalTime;
 @CrossOrigin(origins = "http://localhost:3000")
 public class AuthController {
 
-    private final KafkaTemplate<String, String> kafkaTemplate;
+    private final KafkaTemplate<String, UserDto> kafkaTemplate;
     private final EmailClient emailClient;
     private final NotificationClient notificationClient;
 
@@ -49,7 +51,7 @@ public class AuthController {
         log.info("[Auth Service] Registering user (ASYNC): {}", dto.getEmail());
         log.info("[Auth Service] Start time: {}", LocalTime.now());
 
-        kafkaTemplate.send("user-registered", dto.getEmail());
+        kafkaTemplate.send("user-registered", UUID.randomUUID().toString(), dto);
         log.info("[Auth Service] Published message to Kafka topic 'user-registered'");
 
         long end = System.currentTimeMillis();
