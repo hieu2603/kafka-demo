@@ -17,12 +17,10 @@ Di chuyển đến thư mục của dự án:
 Mở 4 terminal và chạy lần lượt từng lệnh:
 
 ```bash
-  docker-compose up --build -d
-  docker logs -f auth-service
-  docker logs -f email-service
-  docker logs -f notification-service
+  docker-compose up --build
 ```
 
 Truy cập http://localhost:3000 để chạy demo.
+Truy cập http://localhost:8080 để xem Kafka UI.
 
 Xem kết quả trong các terminal.
